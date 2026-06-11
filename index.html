@@ -234,9 +234,19 @@
   }, { threshold: 0.15 });
   document.querySelectorAll('.card').forEach(c => observer.observe(c));
 
-  // Panel toggle
+  // Panel toggle com senha
   function togglePanel() {
-    document.getElementById('editPanel').classList.toggle('open');
+    const panel = document.getElementById('editPanel');
+    if (panel.classList.contains('open')) {
+      panel.classList.remove('open');
+      return;
+    }
+    const senha = prompt('Digite a senha para editar o site:');
+    if (senha === 'renata2026') {
+      panel.classList.add('open');
+    } else if (senha !== null) {
+      alert('Senha incorreta.');
+    }
   }
 
   // Apply changes
