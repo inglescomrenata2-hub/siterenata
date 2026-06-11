@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renata Campos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --terracotta: #C1694F;
+    --terracotta-light: #D4806A;
+    --offwhite: #F5F0EA;
+    --black: #1A1A1A;
+    --gray: #6B6B6B;
+  }
+  html { scroll-behavior: smooth; }
+  body { background-color: var(--offwhite); color: var(--black); font-family: 'Inter', sans-serif; min-height: 100vh; overflow-x: hidden; }
+
+  /* EDIT BUTTON */
+  .edit-toggle {
+    position: fixed; top: 16px; right: 16px; z-index: 1000;
+    background: var(--black); color: var(--offwhite);
+    border: none; border-radius: 2px; padding: 10px 18px;
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 1.5px;
+    text-transform: uppercase; cursor: pointer;
+    transition: background 0.3s;
+  }
+  .edit-toggle:hover { background: var(--terracotta); }
+
+  /* PANEL */
+  .panel {
+    display: none; position: fixed; top: 0; right: 0; width: 340px; height: 100vh;
+    background: #fff; z-index: 999; overflow-y: auto;
+    box-shadow: -4px 0 30px rgba(0,0,0,0.12);
+    padding: 70px 24px 40px;
+    font-family: 'Inter', sans-serif;
+  }
+  .panel.open { display: block; }
+  .panel h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 20px; color: var(--black); }
+  .panel-section { margin-bottom: 28px; border-bottom: 1px solid #eee; padding-bottom: 24px; }
+  .panel-section:last-child { border-bottom: none; }
+  .panel-section h4 { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--terracotta); margin-bottom: 12px; }
+  .panel label { display: block; font-size: 0.78rem; color: var(--gray); margin-bottom: 4px; margin-top: 10px; }
+  .panel input, .panel textarea {
+    width: 100%; padding: 8px 10px; border: 1px solid #ddd; border-radius: 2px;
+    font-size: 0.82rem; font-family: 'Inter', sans-serif; color: var(--black);
+    background: #fafafa; transition: border 0.2s;
+  }
+  .panel input:focus, .panel textarea:focus { outline: none; border-color: var(--terracotta); }
+  .panel textarea { resize: vertical; min-height: 70px; }
+  .panel-apply {
+    width: 100%; padding: 12px; background: var(--black); color: #fff;
+    border: none; border-radius: 2px; font-size: 0.78rem; letter-spacing: 1.5px;
+    text-transform: uppercase; cursor: pointer; margin-top: 8px;
+    transition: background 0.3s;
+  }
+  .panel-apply:hover { background: var(--terracotta); }
+  .color-row { display: flex; gap: 12px; align-items: center; margin-top: 10px; }
+  .color-row input[type=color] { width: 44px; height: 34px; padding: 2px; border: 1px solid #ddd; border-radius: 2px; cursor: pointer; background: none; }
+  .color-row span { font-size: 0.78rem; color: var(--gray); }
+
+  /* HERO */
+  .hero { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 24px 60px; text-align: center; }
+  .avatar-wrapper { position: relative; margin-bottom: 28px; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s ease forwards 0.1s; }
+  .avatar { width: 140px; height: 140px; border-radius: 50%; background: linear-gradient(135deg, var(--terracotta), var(--terracotta-light)); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 2.4rem; color: white; letter-spacing: 1px; overflow: hidden; }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 8%; }
+  .hero-name { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 3rem); font-weight: 600; color: var(--black); opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s ease forwards 0.25s; }
+  .hero-title { font-size: 0.9rem; font-weight: 300; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; margin-top: 8px; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s ease forwards 0.4s; }
+  .hero-divider { width: 40px; height: 2px; background: var(--terracotta); margin: 20px auto; opacity: 0; animation: fadeUp 0.8s ease forwards 0.5s; }
+  .hero-bio { max-width: 420px; font-size: 0.95rem; color: var(--gray); line-height: 1.7; font-weight: 300; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s ease forwards 0.55s; }
+  .hero-cta { margin-top: 28px; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s ease forwards 0.7s; }
+  .btn-instagram { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border: 1.5px solid var(--black); border-radius: 2px; font-size: 0.8rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; color: var(--black); background: transparent; transition: background 0.3s, color 0.3s; cursor: pointer; }
+  .btn-instagram:hover { background: var(--black); color: var(--offwhite); }
+
+  /* CARDS */
+  .cards-section { padding: 20px 24px 80px; max-width: 1100px; margin: 0 auto; }
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  @media (max-width: 800px) { .cards-grid { grid-template-columns: 1fr; } }
+  .card { background: #fff; border-radius: 4px; padding: 44px 36px 40px; display: flex; flex-direction: column; position: relative; overflow: hidden; opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s ease; box-shadow: 0 2px 16px rgba(0,0,0,0.05); }
+  .card.visible { opacity: 1; transform: translateY(0); }
+  .card:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.1); transform: translateY(-4px); }
+  .card-delay-1 { transition-delay: 0.1s; }
+  .card-delay-2 { transition-delay: 0.25s; }
+  .card-delay-3 { transition-delay: 0.4s; }
+  .card-accent { width: 36px; height: 3px; background: var(--terracotta); margin-bottom: 28px; }
+  .card-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--terracotta); margin-bottom: 12px; }
+  .card-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; line-height: 1.3; color: var(--black); margin-bottom: 16px; }
+  .card-desc { font-size: 0.88rem; color: var(--gray); line-height: 1.75; font-weight: 300; flex: 1; margin-bottom: 36px; }
+  .card-btn { display: inline-block; padding: 13px 0; font-size: 0.78rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; color: var(--offwhite); background: var(--black); border: none; border-radius: 2px; text-align: center; cursor: pointer; transition: background 0.3s; }
+  .card-btn:hover { background: var(--terracotta); }
+  .card.featured { background: var(--black); }
+  .card.featured .card-label { color: var(--terracotta-light); }
+  .card.featured .card-title { color: var(--offwhite); }
+  .card.featured .card-desc { color: #aaa; }
+  .card.featured .card-accent { background: var(--terracotta-light); }
+  .card.featured .card-btn { background: var(--terracotta); color: white; }
+  .card.featured .card-btn:hover { background: var(--terracotta-light); }
+
+  footer { text-align: center; padding: 32px 24px; font-size: 0.75rem; color: #bbb; letter-spacing: 1px; }
+
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<button class="edit-toggle" onclick="togglePanel()">Editar site</button>
+
+<!-- PAINEL DE EDIÇÃO -->
+<div class="panel" id="editPanel">
+  <h3>Painel de Edição</h3>
+
+  <div class="panel-section">
+    <h4>Hero</h4>
+    <label>Nome</label>
+    <input type="text" id="e-name" value="Renata Campos">
+    <label>Subtítulo</label>
+    <input type="text" id="e-title" value="English Teacher & Content Creator">
+    <label>Bio</label>
+    <textarea id="e-bio">Ajudo adultos a falarem inglês com confiança — e crio conteúdo que conecta marcas às pessoas certas.</textarea>
+    <label>Link Instagram</label>
+    <input type="text" id="e-ig" value="https://instagram.com/renatacampos.me">
+    <label>Texto botão Instagram</label>
+    <input type="text" id="e-ig-btn" value="@renatacampos.me">
+    <label>URL da foto de perfil</label>
+    <input type="text" id="e-photo" value="https://i.imgur.com/aeF3kOz.jpeg">
+  </div>
+
+  <div class="panel-section">
+    <h4>Card 1 — Infoproduto</h4>
+    <label>Label</label>
+    <input type="text" id="e-c1-label" value="Infoproduto">
+    <label>Título</label>
+    <input type="text" id="e-c1-title" value="English Pocket Planner">
+    <label>Descrição</label>
+    <textarea id="e-c1-desc">Um cronograma de estudos de 8 semanas para quem já tem uma base de inglês mas trava na hora de falar. Prático, direto e feito para a sua rotina.</textarea>
+    <label>Texto do botão</label>
+    <input type="text" id="e-c1-btn" value="Em breve">
+    <label>Link do botão</label>
+    <input type="text" id="e-c1-link" value="#">
+  </div>
+
+  <div class="panel-section">
+    <h4>Card 2 — Aulas</h4>
+    <label>Label</label>
+    <input type="text" id="e-c2-label" value="Aulas Particulares">
+    <label>Título</label>
+    <input type="text" id="e-c2-title" value="Fale inglês de verdade">
+    <label>Descrição</label>
+    <textarea id="e-c2-desc">Aulas online personalizadas para o seu objetivo — seja para o trabalho, viagens ou desenvolvimento pessoal. O foco é comunicação confiante, não perfeição.</textarea>
+    <label>Texto do botão</label>
+    <input type="text" id="e-c2-btn" value="Quero mais informações">
+    <label>Link do botão</label>
+    <input type="text" id="e-c2-link" value="https://wa.me/message/CJAD7JUGMF57C1">
+  </div>
+
+  <div class="panel-section">
+    <h4>Card 3 — Marcas</h4>
+    <label>Label</label>
+    <input type="text" id="e-c3-label" value="Para Marcas">
+    <label>Título</label>
+    <input type="text" id="e-c3-title" value="Produção de Conteúdo">
+    <label>Descrição</label>
+    <textarea id="e-c3-desc">Criação de conteúdo para Instagram, Reels e campanhas publicitárias. Uma voz autêntica no nicho de educação, lifestyle e lifestyle bilíngue.</textarea>
+    <label>Texto do botão</label>
+    <input type="text" id="e-c3-btn" value="Ver Media Kit">
+    <label>Link do botão</label>
+    <input type="text" id="e-c3-link" value="https://drive.google.com/file/d/1JHACLmPqhb0BWSSssVymRC1XXVzRRlej/view?usp=sharing">
+  </div>
+
+  <div class="panel-section">
+    <h4>Cores</h4>
+    <label>Cor principal (terracota)</label>
+    <div class="color-row">
+      <input type="color" id="e-color1" value="#C1694F">
+      <span>Terracota</span>
+    </div>
+    <label>Cor de fundo</label>
+    <div class="color-row">
+      <input type="color" id="e-color2" value="#F5F0EA">
+      <span>Off-white</span>
+    </div>
+  </div>
+
+  <button class="panel-apply" onclick="applyChanges()">Aplicar alterações</button>
+</div>
+
+<!-- SITE -->
+<section class="hero">
+  <div class="avatar-wrapper">
+    <div class="avatar"><img id="s-photo" src="https://i.imgur.com/aeF3kOz.jpeg" alt="Renata Campos"></div>
+  </div>
+  <h1 class="hero-name" id="s-name">Renata Campos</h1>
+  <p class="hero-title" id="s-title">English Teacher &amp; Content Creator</p>
+  <div class="hero-divider"></div>
+  <p class="hero-bio" id="s-bio">Ajudo adultos a falarem inglês com confiança — e crio conteúdo que conecta marcas às pessoas certas.</p>
+  <div class="hero-cta">
+    <a id="s-ig" href="https://instagram.com/renatacampos.me" target="_blank" class="btn-instagram" id="s-ig-btn">@renatacampos.me</a>
+  </div>
+</section>
+
+<section class="cards-section">
+  <div class="cards-grid">
+    <div class="card featured card-delay-1">
+      <div class="card-accent"></div>
+      <p class="card-label" id="s-c1-label">Infoproduto</p>
+      <h2 class="card-title" id="s-c1-title">English Pocket Planner</h2>
+      <p class="card-desc" id="s-c1-desc">Um cronograma de estudos de 8 semanas para quem já tem uma base de inglês mas trava na hora de falar. Prático, direto e feito para a sua rotina.</p>
+      <a id="s-c1-btn" href="#" class="card-btn">Em breve</a>
+    </div>
+    <div class="card card-delay-2">
+      <div class="card-accent"></div>
+      <p class="card-label" id="s-c2-label">Aulas Particulares</p>
+      <h2 class="card-title" id="s-c2-title">Fale inglês de verdade</h2>
+      <p class="card-desc" id="s-c2-desc">Aulas online personalizadas para o seu objetivo — seja para o trabalho, viagens ou desenvolvimento pessoal. O foco é comunicação confiante, não perfeição.</p>
+      <a id="s-c2-btn" href="https://wa.me/message/CJAD7JUGMF57C1" target="_blank" class="card-btn outline" style="background:transparent;color:var(--black);border:1.5px solid var(--black);">Quero mais informações</a>
+    </div>
+    <div class="card featured card-delay-3">
+      <div class="card-accent"></div>
+      <p class="card-label" id="s-c3-label">Para Marcas</p>
+      <h2 class="card-title" id="s-c3-title">Produção de Conteúdo</h2>
+      <p class="card-desc" id="s-c3-desc">Criação de conteúdo para Instagram, Reels e campanhas publicitárias. Uma voz autêntica no nicho de educação, lifestyle e lifestyle bilíngue.</p>
+      <a id="s-c3-btn" href="https://drive.google.com/file/d/1JHACLmPqhb0BWSSssVymRC1XXVzRRlej/view?usp=sharing" target="_blank" class="card-btn">Ver Media Kit</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Renata Campos · renataemingles.com</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.card').forEach(c => observer.observe(c));
+
+  // Panel toggle
+  function togglePanel() {
+    document.getElementById('editPanel').classList.toggle('open');
+  }
+
+  // Apply changes
+  function applyChanges() {
+    // Hero
+    document.getElementById('s-name').textContent = document.getElementById('e-name').value;
+    document.getElementById('s-title').textContent = document.getElementById('e-title').value;
+    document.getElementById('s-bio').textContent = document.getElementById('e-bio').value;
+    document.getElementById('s-ig').href = document.getElementById('e-ig').value;
+    document.getElementById('s-ig').textContent = document.getElementById('e-ig-btn').value;
+    document.getElementById('s-photo').src = document.getElementById('e-photo').value;
+
+    // Cards
+    const cards = [1,2,3];
+    cards.forEach(n => {
+      document.getElementById(`s-c${n}-label`).textContent = document.getElementById(`e-c${n}-label`).value;
+      document.getElementById(`s-c${n}-title`).textContent = document.getElementById(`e-c${n}-title`).value;
+      document.getElementById(`s-c${n}-desc`).textContent = document.getElementById(`e-c${n}-desc`).value;
+      document.getElementById(`s-c${n}-btn`).textContent = document.getElementById(`e-c${n}-btn`).value;
+      document.getElementById(`s-c${n}-btn`).href = document.getElementById(`e-c${n}-link`).value;
+    });
+
+    // Colors
+    const c1 = document.getElementById('e-color1').value;
+    const c2 = document.getElementById('e-color2').value;
+    document.documentElement.style.setProperty('--terracotta', c1);
+    document.documentElement.style.setProperty('--offwhite', c2);
+
+    // Feedback
+    const btn = document.querySelector('.panel-apply');
+    btn.textContent = 'Salvo!';
+    setTimeout(() => btn.textContent = 'Aplicar alterações', 1500);
+  }
+</script>
+</body>
+</html>
