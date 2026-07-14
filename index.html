@@ -141,6 +141,12 @@
   .card.featured .card-accent { background: var(--terracotta-light); }
   .card.featured .card-btn { background: var(--terracotta); color: white; }
   .card.featured .card-btn:hover { background: var(--terracotta-light); }
+  .card.offer { grid-column: 1 / -1; background: var(--terracotta); }
+  .card.offer .card-accent { background: #fff; }
+  .card.offer .card-label { color: #fff; }
+  .card.offer .card-title, .card.offer .card-desc { color: var(--offwhite); }
+  .card.offer .card-btn { background: var(--black); color: var(--offwhite); align-self: flex-start; padding: 13px 30px; }
+  .card.offer .card-btn:hover { background: #fff; color: var(--black); }
 
   footer { text-align: center; padding: 32px 24px; font-size: 0.75rem; color: #bbb; letter-spacing: 1px; position: relative; z-index: 1; }
 
@@ -158,63 +164,63 @@
 <button class="edit-toggle" onclick="togglePanel()">Editar site</button>
 
 <div class="panel" id="editPanel">
-  <h3>Painel de Edição</h3>
+  <h3>Painel de Edi&#231;&#227;o</h3>
 
   <div class="panel-section">
     <h4>Hero</h4>
     <label>Nome</label>
     <input type="text" id="e-name" value="Renata Campos">
-    <label>Subtítulo</label>
+    <label>Subt&#237;tulo</label>
     <input type="text" id="e-title" value="English Teacher & Content Creator">
     <label>Bio</label>
-    <textarea id="e-bio">Ajudo adultos a falarem inglês com confiança — e crio conteúdo que conecta marcas às pessoas certas.</textarea>
+    <textarea id="e-bio">Ajudo adultos a falarem ingl&#234;s com confian&#231;a &#8212; e crio conte&#250;do que conecta marcas &#224;s pessoas certas.</textarea>
     <label>Link Instagram</label>
     <input type="text" id="e-ig" value="https://instagram.com/renatacampos.me">
-    <label>Texto botão Instagram</label>
+    <label>Texto bot&#227;o Instagram</label>
     <input type="text" id="e-ig-btn" value="@renatacampos.me">
     <label>URL da foto de perfil</label>
     <input type="text" id="e-photo" value="https://i.imgur.com/vtrLsRN.jpeg">
   </div>
 
   <div class="panel-section">
-    <h4>Card 1 — Infoproduto</h4>
+    <h4>Card 1 &#8212; Infoproduto</h4>
     <label>Label</label>
     <input type="text" id="e-c1-label" value="Infoproduto">
-    <label>Título</label>
+    <label>T&#237;tulo</label>
     <input type="text" id="e-c1-title" value="English Pocket Planner">
-    <label>Descrição</label>
-    <textarea id="e-c1-desc">Um cronograma de estudos de 8 semanas para quem já tem uma base de inglês mas trava na hora de falar. Prático, direto e feito para a sua rotina.</textarea>
-    <label>Texto do botão</label>
+    <label>Descri&#231;&#227;o</label>
+    <textarea id="e-c1-desc">Um cronograma de estudos de 8 semanas para quem j&#225; tem uma base de ingl&#234;s mas trava na hora de falar. Pr&#225;tico, direto e feito para a sua rotina.</textarea>
+    <label>Texto do bot&#227;o</label>
     <input type="text" id="e-c1-btn" value="Saiba mais">
-    <label>Link do botão</label>
+    <label>Link do bot&#227;o</label>
     <input type="text" id="e-c1-link" value="https://planner.renataemingles.com.br">
   </div>
 
   <div class="panel-section">
-    <h4>Card 2 — Aulas</h4>
+    <h4>Card 2 &#8212; Aulas</h4>
     <label>Label</label>
     <input type="text" id="e-c2-label" value="Aulas Particulares">
-    <label>Título</label>
-    <input type="text" id="e-c2-title" value="Fale inglês de verdade">
-    <label>Descrição</label>
-    <textarea id="e-c2-desc">Aulas online personalizadas para o seu objetivo — seja para o trabalho, viagens ou desenvolvimento pessoal. O foco é comunicação confiante, não perfeição.</textarea>
-    <label>Texto do botão</label>
-    <input type="text" id="e-c2-btn" value="Quero mais informações">
-    <label>Link do botão</label>
+    <label>T&#237;tulo</label>
+    <input type="text" id="e-c2-title" value="Fale ingl&#234;s de verdade">
+    <label>Descri&#231;&#227;o</label>
+    <textarea id="e-c2-desc">Aulas online personalizadas para o seu objetivo &#8212; seja para o trabalho, viagens ou desenvolvimento pessoal. O foco &#233; comunica&#231;&#227;o confiante, n&#227;o perfei&#231;&#227;o.</textarea>
+    <label>Texto do bot&#227;o</label>
+    <input type="text" id="e-c2-btn" value="Quero mais informa&#231;&#245;es">
+    <label>Link do bot&#227;o</label>
     <input type="text" id="e-c2-link" value="https://wa.me/message/CJAD7JUGMF57C1">
   </div>
 
   <div class="panel-section">
-    <h4>Card 3 — Marcas</h4>
+    <h4>Card 3 &#8212; Marcas</h4>
     <label>Label</label>
     <input type="text" id="e-c3-label" value="Para Marcas">
-    <label>Título</label>
-    <input type="text" id="e-c3-title" value="Produção de Conteúdo">
-    <label>Descrição</label>
-    <textarea id="e-c3-desc">Criação de conteúdo para Instagram, Reels e campanhas publicitárias. Uma voz autêntica no nicho de educação, lifestyle e lifestyle bilíngue.</textarea>
-    <label>Texto do botão</label>
+    <label>T&#237;tulo</label>
+    <input type="text" id="e-c3-title" value="Produ&#231;&#227;o de Conte&#250;do">
+    <label>Descri&#231;&#227;o</label>
+    <textarea id="e-c3-desc">Cria&#231;&#227;o de conte&#250;do para Instagram, Reels e campanhas publicit&#225;rias. Uma voz aut&#234;ntica no nicho de educa&#231;&#227;o, lifestyle e lifestyle bil&#237;ngue.</textarea>
+    <label>Texto do bot&#227;o</label>
     <input type="text" id="e-c3-btn" value="Ver Media Kit">
-    <label>Link do botão</label>
+    <label>Link do bot&#227;o</label>
     <input type="text" id="e-c3-link" value="https://drive.google.com/file/d/1JHACLmPqhb0BWSSssVymRC1XXVzRRlej/view?usp=sharing">
   </div>
 
@@ -232,7 +238,7 @@
     </div>
   </div>
 
-  <button class="panel-apply" onclick="applyChanges()">Aplicar alterações</button>
+  <button class="panel-apply" onclick="applyChanges()">Aplicar altera&#231;&#245;es</button>
 </div>
 
 <section class="hero">
@@ -242,7 +248,7 @@
   <h1 class="hero-name" id="s-name">Renata Campos</h1>
   <p class="hero-title" id="s-title">English Teacher &amp; Content Creator</p>
   <div class="hero-divider"></div>
-  <p class="hero-bio" id="s-bio">Ajudo adultos a falarem inglês com confiança — e crio conteúdo que conecta marcas às pessoas certas.</p>
+  <p class="hero-bio" id="s-bio">Ajudo adultos a falarem ingl&#234;s com confian&#231;a &#8212; e crio conte&#250;do que conecta marcas &#224;s pessoas certas.</p>
   <div class="hero-cta">
     <a id="s-ig" href="https://instagram.com/renatacampos.me" target="_blank" class="btn-instagram">@renatacampos.me</a>
   </div>
@@ -254,27 +260,34 @@
       <div class="card-accent"></div>
       <p class="card-label" id="s-c1-label">Infoproduto</p>
       <h2 class="card-title" id="s-c1-title">English Pocket Planner</h2>
-      <p class="card-desc" id="s-c1-desc">Um cronograma de estudos de 8 semanas para quem já tem uma base de inglês mas trava na hora de falar. Prático, direto e feito para a sua rotina.</p>
+      <p class="card-desc" id="s-c1-desc">Um cronograma de estudos de 8 semanas para quem j&#225; tem uma base de ingl&#234;s mas trava na hora de falar. Pr&#225;tico, direto e feito para a sua rotina.</p>
       <a id="s-c1-btn" href="https://planner.renataemingles.com.br" target="_blank" class="card-btn">Saiba mais</a>
     </div>
     <div class="card card-delay-2">
       <div class="card-accent"></div>
       <p class="card-label" id="s-c2-label">Aulas Particulares</p>
-      <h2 class="card-title" id="s-c2-title">Fale inglês de verdade</h2>
-      <p class="card-desc" id="s-c2-desc">Aulas online personalizadas para o seu objetivo — seja para o trabalho, viagens ou desenvolvimento pessoal. O foco é comunicação confiante, não perfeição.</p>
-      <a id="s-c2-btn" href="https://wa.me/message/CJAD7JUGMF57C1" target="_blank" class="card-btn outline">Quero mais informações</a>
+      <h2 class="card-title" id="s-c2-title">Fale ingl&#234;s de verdade</h2>
+      <p class="card-desc" id="s-c2-desc">Aulas online personalizadas para o seu objetivo &#8212; seja para o trabalho, viagens ou desenvolvimento pessoal. O foco &#233; comunica&#231;&#227;o confiante, n&#227;o perfei&#231;&#227;o.</p>
+      <a id="s-c2-btn" href="https://wa.me/message/CJAD7JUGMF57C1" target="_blank" class="card-btn outline">Quero mais informa&#231;&#245;es</a>
     </div>
     <div class="card featured card-delay-3">
       <div class="card-accent"></div>
       <p class="card-label" id="s-c3-label">Para Marcas</p>
-      <h2 class="card-title" id="s-c3-title">Produção de Conteúdo</h2>
-      <p class="card-desc" id="s-c3-desc">Criação de conteúdo para Instagram, Reels e campanhas publicitárias. Uma voz autêntica no nicho de educação, lifestyle e lifestyle bilíngue.</p>
+      <h2 class="card-title" id="s-c3-title">Produ&#231;&#227;o de Conte&#250;do</h2>
+      <p class="card-desc" id="s-c3-desc">Cria&#231;&#227;o de conte&#250;do para Instagram, Reels e campanhas publicit&#225;rias. Uma voz aut&#234;ntica no nicho de educa&#231;&#227;o, lifestyle e lifestyle bil&#237;ngue.</p>
       <a id="s-c3-btn" href="https://drive.google.com/file/d/1JHACLmPqhb0BWSSssVymRC1XXVzRRlej/view?usp=sharing" target="_blank" class="card-btn">Ver Media Kit</a>
+    </div>
+    <div class="card offer">
+      <div class="card-accent"></div>
+      <p class="card-label">App recomendado</p>
+      <h2 class="card-title">Versa &#8212; pratique ingl&#234;s falando</h2>
+      <p class="card-desc">O Versa &#233; um app com tutores de intelig&#234;ncia artificial para voc&#234; praticar conversa&#231;&#227;o em ingl&#234;s a qualquer hora, com corre&#231;&#227;o na hora e um plano feito para o seu n&#237;vel. &#201; exatamente o que eu ensino aqui: destravar a fala treinando de verdade. Quem vem pelo meu link garante um desconto exclusivo.</p>
+      <a href="https://learnversa.com/c/InglesConRenata" target="_blank" class="card-btn">Baixar com desconto</a>
     </div>
   </div>
 </section>
 
-<footer>© 2026 Renata Campos · renataemingles.com</footer>
+<footer>&#169; 2026 Renata Campos &#183; renataemingles.com</footer>
 
 <script>
   const observer = new IntersectionObserver(entries => {
@@ -317,7 +330,7 @@
 
     const btn = document.querySelector('.panel-apply');
     btn.textContent = 'Salvo!';
-    setTimeout(() => btn.textContent = 'Aplicar alterações', 1500);
+    setTimeout(() => btn.textContent = 'Aplicar altera\u00e7\u00f5es', 1500);
   }
 </script>
 </body>
